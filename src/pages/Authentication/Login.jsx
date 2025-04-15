@@ -3,9 +3,13 @@ import SocialLogin from '../../components/Shared/SocialLogin';
 import Lottie from 'lottie-react';
 import AuthContext from '../../context/AuthContext';
 import loginImage from '../../assets/animation/login.json'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const { loggedUser } = useContext(AuthContext);
+    const location= useLocation()
+    const navigate=useNavigate()
+    console.log(location);
 
     const handleLogin = (e) => {
         e.preventDefault()
@@ -15,7 +19,7 @@ const Login = () => {
         console.log(email, password);
         loggedUser(email, password)
             .then(result => {
-                console.log(result);
+                navigate(location?.state ? location?.state : '/')
             })
             .catch(error => {
                 console.log(error);
